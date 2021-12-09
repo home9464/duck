@@ -3,7 +3,15 @@
 https://www.aranacorp.com/en/using-a-pca9685-module-with-raspberry-pi/
 
 pip install adafruit-circuitpython-servokit
+
+sudo raspi-config
+
+"3) interface options" -> "I5 I2C Enable/disable automatic loading of I2C kernel module"  -> "Yes"
+
+
 """
+import time
+
 from adafruit_servokit import ServoKit
 
 class Servo:
@@ -24,8 +32,7 @@ class Servo:
         self.servokit.servo[index].angle = angle
 
 
-if __name__ == '__main__':
-    import time
+def test():
     srv = Servo()
     for i in range(0, 180, 15):
         srv.angle(0, i)
@@ -33,3 +40,13 @@ if __name__ == '__main__':
     time.sleep(1)
     srv.angle(0, 180)
     time.sleep(1)
+
+if __name__ == '__main__':
+    srv = Servo()
+    #for i in range(0, 180, 15):
+    while True:
+        srv.angle(0, 0)
+        time.sleep(1)
+        srv.angle(0, 180)
+        time.sleep(1)
+        srv.angle(0, 0)

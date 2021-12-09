@@ -2,7 +2,7 @@
 https://www.pololu.com/product/707/specs
 
 
-The driver can control two DC motors. 
+The driver can control two DC motors.
 
 Each DC motor will drive a propeller (one is rotated Clockwise, another one is Counter Clock Wise)
 
@@ -18,40 +18,36 @@ pip install RPi.GPIO
 
 """
 import RPi.GPIO as GPIO
-
+GPIO.setwarnings(False)
 
 # On the Pi 4B and 400 (and CM4) you have two pairs of PWM channels.
 
-# PWM0_0 available on GPIO 12, 18 or 52.
-# PWM0_1 available on GPIO 13, 19, 45 or 53
-# PWM1_0 available on GPIO 40
-# PWM1_1 available on GPIO 41
-
 BCM_PIN = {
-    #'motor1_pwm': 18, 
-    #'motor1_A': 15, 
+
+    #'motor1_pwm': 18,
+    #'motor1_A': 15,
     #'motor1_B': 14,
 
-    'motor1_pwm': 18, 
-    'motor1_A': 23, 
-    'motor1_B': 24,
+    'motor1_pwm': 25,
+    'motor1_A': 24,
+    'motor1_B': 23,
 
-    'motor2_pwm': 27, 
-    'motor2_A': 17, 
+    'motor2_pwm': 27,
+    'motor2_A': 17,
     'motor2_B': 22
 }
 
 BOARD_PIN = {
-    #'motor1_pwm': 12, 
-    #'motor1_A': 10, 
+    #'motor1_pwm': 12,
+    #'motor1_A': 10,
     #'motor1_B': 8,
 
-    'motor1_pwm': 32, 
-    'motor1_A': 31, 
-    'motor1_B': 29,
+    'motor1_pwm': 22,
+    'motor1_A': 18,
+    'motor1_B': 16,
 
-    'motor2_pwm': 13, 
-    'motor2_A': 11, 
+    'motor2_pwm': 13,
+    'motor2_A': 11,
     'motor2_B': 15
 }
 
@@ -60,7 +56,7 @@ class Wheel:
     DIRECTION_BACKWARD = 2
     DIRECTION_LEFT = 3
     DIRECTION_RIGHT = 4
-    def __init__(self, mode=GPIO.BCM):  # or GPIO.BOARD
+    def __init__(self, mode=GPIO.BOARD):  # or GPIO.BOARD
         GPIO.setmode(mode)  # Set Pi to use pin number when referencing GPIO pins.
         self.PIN = BCM_PIN if mode == GPIO.BCM else BOARD_PIN
         GPIO.setup(self.PIN['motor1_pwm'], GPIO.OUT)
@@ -115,7 +111,7 @@ class Wheel:
             self.left(percent)
         elif direction == 4:
             self.right(percent)
-            
+
     def throttle(self, percentage: int = 100) -> None:
         assert 0 <= percentage and percentage <= 100
         self.pwm1.ChangeDutyCycle(percentage)
@@ -128,10 +124,12 @@ class Wheel:
 
 if __name__ =='__main__':
     import time
-    GPIO.cleanup()
+    #GPIO.cleanup()
     drive = Wheel()
-    for direction in [1, 2, 3, 4]:
-        drive.drive(direction)
-        time.sleep(1)
+    while True:
+        for direction in [1, 2, 3, 4]:
+        #for direction in [3]:
+            drive.drive(direction)
+            time.sleep(2)
     drive.drive(0)
     drive.close()
