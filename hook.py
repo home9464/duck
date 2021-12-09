@@ -14,9 +14,9 @@ import time
 
 from adafruit_servokit import ServoKit
 
-class Servo:
+class RoboArm:
     def __init__(self, max_angle=180):
-        servos_indices = [0]  # only use one servo
+        servos_indices = [0, 2]  # only use one servo
         self.servokit = ServoKit(channels=16)
         self.max_angle = 180
         for i in servos_indices:
@@ -33,20 +33,17 @@ class Servo:
 
 
 def test():
-    srv = Servo()
-    for i in range(0, 180, 15):
-        srv.angle(0, i)
-        time.sleep(1)
-    time.sleep(1)
-    srv.angle(0, 180)
-    time.sleep(1)
-
-if __name__ == '__main__':
-    srv = Servo()
+    srv = RoboArm()
     #for i in range(0, 180, 15):
     while True:
         srv.angle(0, 0)
+        srv.angle(2, 0)
         time.sleep(1)
         srv.angle(0, 180)
+        srv.angle(2, 180)
         time.sleep(1)
         srv.angle(0, 0)
+        srv.angle(2, 0)
+
+if __name__ == '__main__':
+    test()

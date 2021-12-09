@@ -20,8 +20,6 @@ pip install RPi.GPIO
 import RPi.GPIO as GPIO
 GPIO.setwarnings(False)
 
-# On the Pi 4B and 400 (and CM4) you have two pairs of PWM channels.
-
 BCM_PIN = {
 
     #'motor1_pwm': 18,
@@ -51,12 +49,12 @@ BOARD_PIN = {
     'motor2_B': 15
 }
 
-class Wheel:
+class ThisFakeDuck:
     DIRECTION_FORWARD = 1
     DIRECTION_BACKWARD = 2
     DIRECTION_LEFT = 3
     DIRECTION_RIGHT = 4
-    def __init__(self, mode=GPIO.BOARD):  # or GPIO.BOARD
+    def __init__(self, mode=GPIO.BCM):  # or GPIO.BOARD
         GPIO.setmode(mode)  # Set Pi to use pin number when referencing GPIO pins.
         self.PIN = BCM_PIN if mode == GPIO.BCM else BOARD_PIN
         GPIO.setup(self.PIN['motor1_pwm'], GPIO.OUT)
@@ -125,7 +123,7 @@ class Wheel:
 if __name__ =='__main__':
     import time
     #GPIO.cleanup()
-    drive = Wheel()
+    drive = ThisFakeDuck()
     while True:
         for direction in [1, 2, 3, 4]:
         #for direction in [3]:
