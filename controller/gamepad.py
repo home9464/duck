@@ -173,7 +173,7 @@ def drive(direction):
 def deploy(angle):
     print(f'deploy: {angle}')
     real_angle = 180 if angle == 1 else 0
-    transmit(f'A:{angle}')
+    transmit(f'A:{real_angle}')
 
 async def main():
     controller = Controller()
