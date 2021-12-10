@@ -49,17 +49,21 @@ CODE_RIGHT_STICK_HORIZONTAL = 4
 CODE_PAD_HORIZONTAL = 16
 CODE_PAD_VERTICAL = 17
 
-CODE_BUTTON_A = 304
-CODE_BUTTON_B = 305
-CODE_BUTTON_X = 306
-CODE_BUTTON_Y = 307
+CODE_BUTTON_A = 304  # value 0 or 1
+CODE_BUTTON_B = 305  # value 0 or 1
+CODE_BUTTON_X = 306  # value 0 or 1
+CODE_BUTTON_Y = 307  # value 0 or 1
+
 CODE_BUTTON_LEFT_BUMPER = 308
 CODE_BUTTON_RIGHT_BUMPER = 309
 CODE_BUTTON_LEFT_BUMPER = 308
 CODE_BUTTON_RIGHT_BUMPER = 309
 
-CODE_BUTTON_VIEW = 310
-CODE_BUTTON_MENU = 311
+CODE_BUTTON_LEFT_SHOULDER = 310  # value 0 or 1
+CODE_BUTTON_RIGHT_SHOULDER = 311  # value 0 or 1
+
+CODE_LEFT_TRIGGER = 2  # value 0-1023
+CODE_RIGHT_TRIGGER = 5  # value 0-1023
 
 
 class Controller:
@@ -162,7 +166,7 @@ class Controller:
                         #self.events_value['stick'] = direction
                         self.move(direction)
 
-                    if  event.code == CODE_BUTTON_VIEW and event.value == 1:  # a button is pressed
+                    if  event.code == CODE_BUTTON_A and event.value == 1:  # A button is pressed
                         self.is_deployed = 1 - self.is_deployed
                         self.deploy(self.is_deployed)
                     '''
