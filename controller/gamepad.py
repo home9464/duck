@@ -106,11 +106,10 @@ class Controller:
         while True:
             try:
                 async for event in self.controller.async_read_loop():
+                    print(f'code: {event.code}, type: {event.type}, value: {event.value}')
                     if event.code == 0 and event.type == 0 and event.value== 0:
                         continue
-                    if self.debug:
-                        pass
-                        #print(f'code: {event.code}, type: {event.type}, value: {event.value}')
+                    #if self.debug:
 
                     #if  event.code == CODE_LEFT_STICK_VERTICAL or event.code == CODE_LEFT_STICK_HORIZONTAL:
                     if  event.code == CODE_RIGHT_STICK_VERTICAL or event.code == CODE_RIGHT_STICK_HORIZONTAL:
