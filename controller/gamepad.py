@@ -69,6 +69,7 @@ class Controller:
         self.events_callback = {'stick':[], 'button':[]}
         self.events_value = {'stick':0, 'button': 0}
         self.debug = debug
+        self.is_deployed = False
 
     def _find_input_device(self):
         """
@@ -86,6 +87,16 @@ class Controller:
             except OSError as e:
                 self.controller = None
         print(f'Controller connected: {self.controller}')
+
+    def move(self, direction):
+        transmit(f'D:{direction}')
+        print(f'move: {direction}')
+
+    def deploy(self, flag):
+        angle = 180 if flag == 1 else 0
+        transmit(f'A:{angle}')
+        print(f'deploy: {angle}')
+
 
     def register(self, event:str, callback:Callable):
         """
@@ -108,8 +119,8 @@ class Controller:
                 async for event in self.controller.async_read_loop():
                     if event.code == 0 and event.type == 0 and event.value== 0:
                         continue
-                    #if self.debug:
-                    print(f'code: {event.code}, type: {event.type}, value: {event.value}')
+                    if self.debug:
+                        print(f'code: {event.code}, type: {event.type}, value: {event.value}')
 
                     #if  event.code == CODE_LEFT_STICK_VERTICAL or event.code == CODE_LEFT_STICK_HORIZONTAL:
                     if  event.code == CODE_RIGHT_STICK_VERTICAL or event.code == CODE_RIGHT_STICK_HORIZONTAL:
@@ -148,16 +159,19 @@ class Controller:
                                 direction = 8  # 'down-right'
                         #driver.drive(direction)
                         #print('Direction:', direction)
-                        self.events_value['stick'] = direction
+                        #self.events_value['stick'] = direction
+                        self.move(direction)
 
                     if  event.code == CODE_BUTTON_VIEW and event.value == 1:  # a button is pressed
-                        self.events_value['button'] = 1 - self.events_value['button']
-
+                        self.is_deployed = 1 - self.is_deployed
+                        self.deploy(self.is_deployed)
+                    '''
                     for evt, callbacks in self.events_callback.items():
                         for cb in callbacks:
                             if self.events_value[evt] != 0:
                                 cb(self.events_value[evt])
                                 self.events_value[evt] = 0
+                    '''
                 await asyncio.sleep(0)
             except OSError as e:  # when controller was poweroff
                 print('Controller not connected')
@@ -165,19 +179,10 @@ class Controller:
         def close(self):
             pass
 
-def drive(direction):
-    print(f'drive: {direction}')
-    transmit(f'D:{direction}')
-
-def deploy(angle):
-    print(f'deploy: {angle}')
-    real_angle = 180 if angle == 1 else 0
-    transmit(f'A:{real_angle}')
-
 async def main():
     controller = Controller()
-    controller.register('stick', drive)
-    controller.register('button', deploy)
+    #controller.register('stick', drive)
+    #controller.register('button', deploy)
     try:
         await asyncio.gather(await controller.start())
     except Exception as e:
