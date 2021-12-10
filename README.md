@@ -27,7 +27,7 @@ sudo adduser pi dialout
 install package and test connected serial device
 
 ```bash
-pip install pyserial
+pip install pyserial evdev
 
 # see what ports are open
 python -m serial.tools.list_ports
@@ -76,6 +76,11 @@ We also need a joystick as the remote controller
 
 https://tutorials-raspberrypi.com/raspberry-pi-joystick-with-mcp3008/
 
+Connect Xbox Controller to the Pi by USB
 
+```bash
+ls /dev/input/*
 
+/dev/input/event0  /dev/input/event1  /dev/input/event2  /dev/input/js0  /dev/input/mice
+```
 

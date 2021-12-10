@@ -168,9 +168,11 @@ class Controller:
 
 def drive(direction):
     print(f'drive: {direction}')
+    transmit(f'D:{direction}')
 
 def deploy(angle):
     print(f'deploy: {angle}')
+    transmit(f'A:{angle}')
 
 async def main():
     controller = Controller()
