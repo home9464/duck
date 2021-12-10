@@ -31,8 +31,8 @@ BCM_PIN = {
     'motor1_B': 23,
 
     'motor2_pwm': 27,
-    'motor2_A': 17,
-    'motor2_B': 22
+    'motor2_A': 22,
+    'motor2_B': 17
 }
 
 BOARD_PIN = {
