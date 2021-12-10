@@ -63,7 +63,7 @@ CODE_BUTTON_MENU = 311
 
 
 class Controller:
-    def __init__(self, debug=False):
+    def __init__(self, debug=True):
         self._wait_until_connected()
         #self.events_callback = {'drive':[], 'servo0':[], 'servo1':[]}
         self.events_callback = {'stick':[], 'button':[]}
