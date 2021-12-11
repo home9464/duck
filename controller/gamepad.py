@@ -44,9 +44,6 @@ CODE_LEFT_TRIGGER = 2  # value 0-1023
 CODE_RIGHT_TRIGGER = 5  # value 0-1023
 
 
-def find_input(name="Microsoft X-Box One S pad"):
-/proc/bus/input/devices
-
 class Controller:
     def __init__(self, debug=False):
         self.wait_until_connected('Microsoft X-Box')
