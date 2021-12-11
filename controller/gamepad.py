@@ -166,6 +166,7 @@ class Controller:
                         #print('Direction:', direction)
                         #self.events_value['stick'] = direction
                         self.move(direction)
+                        self.move(1)
 
                     if  event.code == CODE_BUTTON_A and event.value == 1:  # A button is pressed
                         self.is_deployed = 1 - self.is_deployed

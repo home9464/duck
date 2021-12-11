@@ -47,6 +47,8 @@ sudo reboot
 
 https://stackoverflow.com/questions/28343941/python-serialexception-device-reports-readiness-to-read-but-returned-no-data-d
 
+
+remove **<u>console=serial0,115200</u>** from /boot/cmdline.txt
 ```bash
 sudo nano /boot/cmdline.txt
 ```
@@ -83,4 +85,6 @@ ls /dev/input/*
 
 /dev/input/event0  /dev/input/event1  /dev/input/event2  /dev/input/js0  /dev/input/mice
 ```
+
+It should be **/dev/input/event2** for wired connection.
 
