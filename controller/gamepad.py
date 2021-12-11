@@ -13,7 +13,7 @@ import random
 import math
 from typing import AnyStr, Callable
 
-from evdev import  InputDevice
+import evdev
 from transmiter import transmit
 
 
@@ -56,15 +56,13 @@ class Controller:
     def wait_until_connected(self, controller_name='Microsoft X-Box'):
         self.controller = None
         while self.controller is None:
-            input_device_name = None
             for d in evdev.list_devices():
-                if InputDevice(d).name.startswith(controller_name):
-                    input_device_name = d  # /dev/input/event0
-            if input_device_name is not None:
-                try:
-                    self.controller = InputDevice(input_device_name)
-                except OSError as e:
-                    self.controller = None
+                if evdev.InputDevice(d).name.startswith(controller_name):
+                    try:
+                        self.controller = evdev.InputDevice(d)
+                        break
+                    except OSError as e:
+                        self.controller = None
         print(f'Controller connected: {self.controller}')
 
     def move(self, direction):
