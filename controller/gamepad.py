@@ -123,6 +123,7 @@ class Controller:
                 async for event in self.controller.async_read_loop():
                     if event.code == 0 and event.type == 0 and event.value== 0:
                         continue
+
                     if self.debug:
                         print(f'code: {event.code}, type: {event.type}, value: {event.value}')
 
