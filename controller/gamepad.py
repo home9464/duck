@@ -3,31 +3,7 @@
 1. it was not started
 2. powered off after connection
 
-devadm info --query=property --name=/dev/input/event4 | grep "ID_INPUT_JOYSTICK=1"
-
-
-DEVPATH=/devices/platform/soc/fe201000.serial/tty/ttyAMA0/hci0/hci0:11/0005:045E:02E0.000A/input/input11/event4
-DEVNAME=/dev/input/event4
-MAJOR=13
-MINOR=68
-SUBSYSTEM=input
-USEC_INITIALIZED=6836871854
-ID_INPUT=1
-ID_INPUT_JOYSTICK=1
-ID_INPUT_KEY=1
-ID_BUS=bluetooth
-XKBMODEL=pc105
-XKBLAYOUT=us
-BACKSPACE=guess
-ID_INPUT_JOYSTICK_INTEGRATION=external
-ID_PATH=platform-soc
-ID_PATH_TAG=platform-soc
-ID_FOR_SEAT=input-platform-soc
-LIBINPUT_DEVICE_GROUP=5/45e/2e0:dc:a6:32:65:d4:45
-LIBINPUT_FUZZ_00=255
-LIBINPUT_FUZZ_01=255
-TAGS=:uaccess:power-switch:seat:
-
+devadm info --query=property --name=/dev/input/event2 | grep "ID_INPUT_JOYSTICK=1"
 
 """
 import asyncio
@@ -87,7 +63,7 @@ class Controller:
         self.controller = None
         while self.controller is None:
             try:
-                self.controller = InputDevice('/dev/input/event2')
+                self.controller = InputDevice('/dev/input/event0')
             except OSError as e:
                 self.controller = None
         print(f'Controller connected: {self.controller}')
