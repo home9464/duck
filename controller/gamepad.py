@@ -5,6 +5,8 @@
 
 devadm info --query=property --name=/dev/input/event2 | grep "ID_INPUT_JOYSTICK=1"
 
+cat /proc/bus/input/devices
+
 """
 import asyncio
 import random
@@ -42,30 +44,31 @@ CODE_LEFT_TRIGGER = 2  # value 0-1023
 CODE_RIGHT_TRIGGER = 5  # value 0-1023
 
 
+def find_input(name="Microsoft X-Box One S pad"):
+/proc/bus/input/devices
+
 class Controller:
-    def __init__(self, debug=True):
-        self._wait_until_connected()
+    def __init__(self, debug=False):
+        self.wait_until_connected('Microsoft X-Box')
         #self.events_callback = {'drive':[], 'servo0':[], 'servo1':[]}
         self.events_callback = {'stick':[], 'button':[]}
         self.events_value = {'stick':0, 'button': 0}
         self.debug = debug
         self.is_deployed = False
 
-    def _find_input_device(self):
-        """
-        multiple devices may present. e.g. a wireless mouse receiver.
-        find the correct device.
-
-        udevadm info --query=property --name=/dev/input/event4 | grep "ID_INPUT_JOYSTICK=1"
-        """
-
-    def _wait_until_connected(self):
+    def wait_until_connected(self, controller_name='Microsoft X-Box'):
+        if input_device_name is None:
         self.controller = None
         while self.controller is None:
-            try:
-                self.controller = InputDevice('/dev/input/event0')
-            except OSError as e:
-                self.controller = None
+            input_device_name = None
+            for d in evdev.list_devices():
+                if InputDevice(d).name.startswith(controller_name):
+                    input_device_name = d  # /dev/input/event0
+            if input_device_name is not None:
+                try:
+                    self.controller = InputDevice(input_device_name)
+                except OSError as e:
+                    self.controller = None
         print(f'Controller connected: {self.controller}')
 
     def move(self, direction):

@@ -81,6 +81,9 @@ https://tutorials-raspberrypi.com/raspberry-pi-joystick-with-mcp3008/
 Connect Xbox Controller to the Pi by USB
 
 ```bash
+
+sudo apt-get install -y evtest
+
 ls /dev/input/*
 
 /dev/input/event0  /dev/input/event1  /dev/input/event2  /dev/input/js0  /dev/input/mice
@@ -88,3 +91,4 @@ ls /dev/input/*
 
 It should be **/dev/input/event2** for wired connection.
 
+sudo cat /proc/bus/input/devices | grep -Poz '("Microsof"[\s\S]+?)\Kevent\d+'
