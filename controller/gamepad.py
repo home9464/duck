@@ -54,7 +54,6 @@ class Controller:
         self.is_deployed = False
 
     def wait_until_connected(self, controller_name='Microsoft X-Box'):
-        if input_device_name is None:
         self.controller = None
         while self.controller is None:
             input_device_name = None
