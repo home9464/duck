@@ -94,7 +94,6 @@ class Controller:
         while True:
             try:
                 async for event in self.controller.async_read_loop():
-                    print('OK')
                     if event.code == 0 and event.type == 0 and event.value== 0:
                         continue
 
