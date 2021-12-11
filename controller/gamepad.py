@@ -1,12 +1,5 @@
 """The Xbox controller
 
-1. it was not started
-2. powered off after connection
-
-devadm info --query=property --name=/dev/input/event2 | grep "ID_INPUT_JOYSTICK=1"
-
-cat /proc/bus/input/devices
-
 """
 import asyncio
 import random
@@ -135,8 +128,6 @@ class Controller:
                                 direction = 7  # 'down-left'
                             else:
                                 direction = 8  # 'down-right'
-                        #driver.drive(direction)
-                        #print('Direction:', direction)
                         #self.events_value['stick'] = direction
                         self.move(direction)
 

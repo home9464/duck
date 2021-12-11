@@ -1,13 +1,5 @@
 """communication via HC12 module
-
-# if you see error like "serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyACM0: [Errno 13] Permission denied: ‘/dev/ttyACM0’."
-sudo adduser pi dialout
-
-pip install pyserial
-
-# see what ports are open
-python -m serial.tools.list_ports
-
+git add . && git commit -m "add code" && git push
 """
 
 import time

@@ -1,0 +1,14 @@
+
+
+[Unit]
+Description=duck
+After=multi-user.target
+
+[Service]
+Restart=always
+WorkingDirectory=/home/pi
+User=pi
+ExecStart=/usr/bin/python /home/pi/Desktop/duck/main.py
+
+[Install]
+WantedBy=multi-user.target
