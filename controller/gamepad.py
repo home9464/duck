@@ -3,6 +3,7 @@
 """
 import asyncio
 import random
+import time
 import math
 from typing import AnyStr, Callable
 
@@ -39,14 +40,14 @@ CODE_RIGHT_TRIGGER = 5  # value 0-1023
 
 class Controller:
     def __init__(self, debug=False):
-        self.wait_until_connected('Microsoft X-Box')
+        self.wait_until_connected('Xbox')
         #self.events_callback = {'drive':[], 'servo0':[], 'servo1':[]}
         self.events_callback = {'stick':[], 'button':[]}
         self.events_value = {'stick':0, 'button': 0}
         self.debug = debug
         self.is_deployed = False
 
-    def wait_until_connected(self, controller_name='Microsoft X-Box'):
+    def wait_until_connected(self, controller_name='Xbox'):
         self.controller = None
         while self.controller is None:
             for d in evdev.list_devices():
@@ -58,6 +59,7 @@ class Controller:
                         break
                     except OSError as e:
                         self.controller = None
+            time.sleep(3)
         print(f'Controller connected: {self.controller}')
 
     def move(self, direction):
