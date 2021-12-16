@@ -33,6 +33,7 @@ def transmit(message):
     """
     formated_message = f'{SECRET_CODE}{message}'
     encrypted_message = fernet.encrypt(formated_message.encode())
+    print(encrypted_message)
     ser.write(encrypted_message+b'\n')  # to be read by receiver as readline()
 
 

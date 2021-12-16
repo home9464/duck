@@ -33,6 +33,7 @@ def main():
         try:
             x = ser.readline()
             x = x.decode().strip().encode()
+            print(x)
             decrypted_message = fernet.decrypt(x).decode()
             if not decrypted_message.startswith(SECRET_CODE):
                 continue
