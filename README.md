@@ -86,3 +86,35 @@ sudo systemctl status duckctl
 sudo systemctl stop duckctl
 sudo systemctl disable duckctl
 ```
+
+## Connect Xbox One controller by bluetooth
+
+```bash
+sudo apt install -y xboxdrv
+echo 'options bluetooth disable_ertm=Y' | sudo tee -a /etc/modprobe.d/bluetooth.conf
+sudo reboot
+sudo bluetoothctl
+"scan on" -> "connect C8:3F:26:46:93:D4" -> "trust C8:3F:26:46:93:D4" -> Ctrl+d
+```
+
+## Reconfig serial port on UART4
+
+The default UART0 (/dev/ttyAMA0) is occupied by the bluetooth (TX -> PIN8/GPIO14, RX -> PIN10/GPIO15 ), so we need to use UART4 (/dev/ttyAMA1) on PIN24 (TX) and PIN21 (RX)
+
+
+https://raspberrypi.stackexchange.com/questions/104464/where-are-the-uarts-on-the-raspberry-pi-4
+
+```bash
+        TXD RXD CTS RTS     Board Pins
+uart0   14  15              8   10
+uart1   14  15              8   10
+uart2   0   1   2   3       27  28  (I2C)
+uart3   4   5   6   7       7   29
+uart4   8   9   10  11      24  21  (SPI0)
+uart5   12  13  14  15      32  33  (gpio-fan)
+```
+
+```bash
+echo 'dtoverlay=uart4,txd1_pin=24,rxd1_pin=21' | sudo tee -a /boot/config.txt
+sudo reboot
+```
