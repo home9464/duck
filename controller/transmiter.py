@@ -24,7 +24,7 @@ SECRET_CODE = '119743'
 
 #HC12_DEVICE = '/dev/cu.usbserial-0001'
 
-HC12_DEVICE = '/dev/ttyAMA0'
+HC12_DEVICE = '/dev/ttyAMA1'
 ser = serial.Serial(port=HC12_DEVICE, baudrate=9600, timeout = 2, writeTimeout = 2)
 assert ser.is_open
 
