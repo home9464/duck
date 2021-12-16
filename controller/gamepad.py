@@ -148,7 +148,7 @@ class Controller:
                 await asyncio.sleep(0)
             except OSError as e:  # when controller was poweroff
                 print('Controller not connected')
-                self._wait_until_connected()
+                self.wait_until_connected()
         def close(self):
             pass
 
