@@ -8,7 +8,7 @@ After=multi-user.target
 Restart=always
 WorkingDirectory=/home/pi
 User=pi
-ExecStart=/usr/bin/python /home/pi/Desktop/duck/controller/gamepad.py
+ExecStart=/usr/bin/python /home/pi/duck/controller/gamepad.py
 
 [Install]
 WantedBy=multi-user.target
