@@ -21,7 +21,8 @@ pip install pyserial evdev cryptography
 python -m serial.tools.list_ports
 
 /dev/ttyAMA0
-1 ports found
+/dev/ttyAMA1
+2 ports found
 ```
 
 ### 3. disable bluetooth

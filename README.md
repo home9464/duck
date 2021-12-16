@@ -35,6 +35,7 @@ https://tutorials-raspberrypi.com/raspberry-pi-joystick-with-mcp3008/
 
 ### Option 1. Wireless connection by bluetooth
 ```bash
+sudo rm -f /usr/bin/python && sudo ln -s /usr/bin/python3 /usr/bin/python
 sudo apt install -y xboxdrv
 echo 'options bluetooth disable_ertm=Y' | sudo tee -a /etc/modprobe.d/bluetooth.conf
 sudo reboot
@@ -65,6 +66,16 @@ sudo reboot
 ```
 
 
+```bash
+pip install pyserial evdev cryptography
+
+# see what ports are open
+python -m serial.tools.list_ports
+
+/dev/ttyAMA0
+/dev/ttyAMA1
+2 ports found
+```
 
 ### Option 2. Wired connection by USB
 
@@ -82,7 +93,6 @@ Assuming the project dir is
 ```bash
 /home/pi/Desktop/duck/
 ```
-
 
 [duck.service](./duck.service)
 
