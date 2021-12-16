@@ -50,9 +50,11 @@ class Controller:
         self.controller = None
         while self.controller is None:
             for d in evdev.list_devices():
-                if evdev.InputDevice(d).name.startswith(controller_name):
+                device = evdev.InputDevice(d)
+                print(device.name)
+                if device.name.startswith(controller_name):
                     try:
-                        self.controller = evdev.InputDevice(d)
+                        self.controller = device
                         break
                     except OSError as e:
                         self.controller = None
